@@ -52,8 +52,17 @@ func (o InshortsNewsObject) GetCreatedAt() string {
 	return time.Unix(o.CreatedAt, 0).Format(time.RFC822)
 }
 
-func GetResults() (*InshortsNewsResponse, error) {
-	resp, err := inshortsClient.Get(baseUrl + "?category=all_news&include_card_data=true")
+func GetResults(category string) (*InshortsNewsResponse, error) {
+	queryParams := "?include_card_data=true"
+
+	switch category {
+	case "all_news", "trending", "top_stories":
+		queryParams += "&category=" + category
+	default:
+		queryParams += "&category=all_news"
+	}
+
+	resp, err := inshortsClient.Get(baseUrl + queryParams)
 	if err != nil {
 		return nil, errors.New("Error getting result from inshorts")
 	}
