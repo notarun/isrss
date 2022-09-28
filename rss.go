@@ -1,0 +1,51 @@
+package main
+
+import "encoding/xml"
+
+// https://validator.w3.org/feed/docs/rss2.html
+type RSS struct {
+	XMLName xml.Name   `xml:"rss"`
+	Version float32    `xml:"version,attr"`
+	Channel RSSChannel `xml:"channel"`
+}
+
+type RSSChannel struct {
+	Title         string    `xml:"title"`
+	Link          string    `xml:"link"`
+	Description   string    `xml:"description"`
+	LastBuildDate string    `xml:"lastBuildDate"`
+	Items         []RSSItem `xml:"item"`
+}
+
+type RSSItem struct {
+	Title       string `xml:"title"`
+	Link        string `xml:"link"`
+	Description string `xml:"description"`
+	PublishDate string `xml:"pubDate"`
+	GUID        string `xml:"guid"`
+}
+
+func NewRSS(response *InshortsNewsResponse) *RSS {
+	rss := RSS{
+		Version: 2.0,
+		Channel: RSSChannel{
+			Title:         "Inshorts RSS Feed",
+			Link:          "https://inshorts.com/news",
+			Description:   "Inshorts news",
+			LastBuildDate: response.GetLastNewsDate(),
+		},
+	}
+
+	for _, item := range response.Data.NewsList {
+		rssItem := RSSItem{
+			Title:       item.NewsObject.Title,
+			Link:        item.NewsObject.URL,
+			Description: item.NewsObject.Content,
+			PublishDate: item.NewsObject.GetCreatedAt(),
+			GUID:        item.NewsObject.URL,
+		}
+		rss.Channel.Items = append(rss.Channel.Items, rssItem)
+	}
+
+	return &rss
+}
