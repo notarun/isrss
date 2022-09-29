@@ -43,7 +43,7 @@ type InshortsNewsObject struct {
 func (r InshortsNewsResponse) GetLastNewsDate() string {
 	var date int64
 	if len(r.Data.NewsList) > 0 {
-		date = r.Data.NewsList[0].NewsObject.CreatedAt
+		date = r.Data.NewsList[0].NewsObject.CreatedAt / 1000
 	} else {
 		date = time.Now().Unix()
 	}
@@ -51,7 +51,7 @@ func (r InshortsNewsResponse) GetLastNewsDate() string {
 }
 
 func (o InshortsNewsObject) GetCreatedAt() string {
-	return time.Unix(o.CreatedAt, 0).Format(time.RFC822)
+	return time.Unix(o.CreatedAt / 1000, 0).Format(time.RFC822)
 }
 
 func (o InshortsNewsObject) GetMarkupContent() string {
