@@ -10,7 +10,8 @@ RSS feeds for Inshorts.
 
 #### development
 
-```
+```sh
+# build dependencies: go, entr, make
 make watch  # start development server
 make build  # compile release build
 ```
