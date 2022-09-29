@@ -29,13 +29,13 @@ type CDATA struct {
 	Value string `xml:",cdata"`
 }
 
-func NewRSS(response *InshortsNewsResponse) *RSS {
+func NewRSS(response *InshortsNewsResponse, title string) *RSS {
 	rss := RSS{
 		Version: "2.0",
 		Channel: RSSChannel{
-			Title:         "Inshorts RSS Feed",
-			Link:          "https://inshorts.com/news",
-			Description:   "Inshorts news",
+			Title:         title,
+			Link:          "https://www.inshorts.com/",
+			Description:   "Inshorts RSS Feed",
 			LastBuildDate: response.GetLastNewsDate(),
 		},
 	}

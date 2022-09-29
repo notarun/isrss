@@ -51,7 +51,7 @@ func (r InshortsNewsResponse) GetLastNewsDate() string {
 }
 
 func (o InshortsNewsObject) GetCreatedAt() string {
-	return time.Unix(o.CreatedAt / 1000, 0).Format(time.RFC822)
+	return time.Unix(o.CreatedAt/1000, 0).Format(time.RFC822)
 }
 
 func (o InshortsNewsObject) GetMarkupContent() string {

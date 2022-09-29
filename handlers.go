@@ -13,7 +13,7 @@ func AllNews(c *gin.Context) {
 		c.String(http.StatusBadGateway, err.Error())
 		return
 	}
-	c.XML(http.StatusOK, NewRSS(result))
+	c.XML(http.StatusOK, NewRSS(result, "Inshorts: All"))
 }
 
 func Trending(c *gin.Context) {
@@ -23,7 +23,7 @@ func Trending(c *gin.Context) {
 		c.String(http.StatusBadGateway, err.Error())
 		return
 	}
-	c.XML(http.StatusOK, NewRSS(result))
+	c.XML(http.StatusOK, NewRSS(result, "Inshorts: Trending"))
 }
 
 func TopStories(c *gin.Context) {
@@ -33,5 +33,5 @@ func TopStories(c *gin.Context) {
 		c.String(http.StatusBadGateway, err.Error())
 		return
 	}
-	c.XML(http.StatusOK, NewRSS(result))
+	c.XML(http.StatusOK, NewRSS(result, "Inshorts: Top"))
 }
