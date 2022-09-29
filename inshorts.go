@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"net/http"
+	"text/template"
 	"time"
 )
 
@@ -50,6 +52,17 @@ func (r InshortsNewsResponse) GetLastNewsDate() string {
 
 func (o InshortsNewsObject) GetCreatedAt() string {
 	return time.Unix(o.CreatedAt, 0).Format(time.RFC822)
+}
+
+func (o InshortsNewsObject) GetMarkupContent() string {
+	t, _ := template.New("content").Parse(`
+	<img src="{{.Image}}" alt="{{.Title}}" style="max-width: 100%; height: auto;" />
+	<p>{{.Content}}</p>
+	`)
+
+	var b bytes.Buffer
+	t.Execute(&b, o)
+	return b.String()
 }
 
 func GetResults(category string) (*InshortsNewsResponse, error) {
