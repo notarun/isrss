@@ -17,7 +17,7 @@ func AllNews(c *gin.Context) {
 }
 
 func Trending(c *gin.Context) {
-	result, err := GetResults(c.Query("trending"))
+	result, err := GetResults("trending")
 	if err != nil {
 		c.Error(err)
 		c.String(http.StatusBadGateway, err.Error())
@@ -27,7 +27,7 @@ func Trending(c *gin.Context) {
 }
 
 func TopStories(c *gin.Context) {
-	result, err := GetResults(c.Query("top_stories"))
+	result, err := GetResults("top_stories")
 	if err != nil {
 		c.Error(err)
 		c.String(http.StatusBadGateway, err.Error())
