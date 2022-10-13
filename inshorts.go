@@ -9,6 +9,14 @@ import (
 	"time"
 )
 
+type NewsCategories string
+
+const (
+	ALL_NEWS      NewsCategories = "all_news"
+	TOP_NEWS      NewsCategories = "top_stories"
+	TRENDING_NEWS NewsCategories = "trending"
+)
+
 const baseUrl = "https://inshorts.com/api/en/news"
 
 var inshortsClient = http.Client{
@@ -65,14 +73,14 @@ func (o InshortsNewsObject) GetMarkupContent() string {
 	return b.String()
 }
 
-func GetResults(category string) (*InshortsNewsResponse, error) {
+func GetResults(category NewsCategories) (*InshortsNewsResponse, error) {
 	queryParams := "?include_card_data=true"
 
 	switch category {
-	case "all_news", "trending", "top_stories":
-		queryParams += "&category=" + category
+	case ALL_NEWS, TRENDING_NEWS, TOP_NEWS:
+		queryParams += "&category=" + string(category)
 	default:
-		queryParams += "&category=all_news"
+		queryParams += "&category=" + string(ALL_NEWS)
 	}
 
 	resp, err := inshortsClient.Get(baseUrl + queryParams)

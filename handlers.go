@@ -7,7 +7,7 @@ import (
 )
 
 func AllNews(c *gin.Context) {
-	result, err := GetResults("all_news")
+	result, err := GetResults(ALL_NEWS)
 	if err != nil {
 		c.Error(err)
 		c.String(http.StatusBadGateway, err.Error())
@@ -17,7 +17,7 @@ func AllNews(c *gin.Context) {
 }
 
 func Trending(c *gin.Context) {
-	result, err := GetResults("trending")
+	result, err := GetResults(TRENDING_NEWS)
 	if err != nil {
 		c.Error(err)
 		c.String(http.StatusBadGateway, err.Error())
@@ -27,7 +27,7 @@ func Trending(c *gin.Context) {
 }
 
 func TopStories(c *gin.Context) {
-	result, err := GetResults("top_stories")
+	result, err := GetResults(TOP_NEWS)
 	if err != nil {
 		c.Error(err)
 		c.String(http.StatusBadGateway, err.Error())
