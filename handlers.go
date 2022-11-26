@@ -6,6 +6,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func Index(c *gin.Context) {
+	c.Redirect(http.StatusTemporaryRedirect, "https://github.com/notarun/isrss")
+}
+
 func AllNews(c *gin.Context) {
 	result, err := GetResults(ALL_NEWS)
 	if err != nil {

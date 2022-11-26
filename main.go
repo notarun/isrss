@@ -6,6 +6,7 @@ import (
 
 func main() {
 	r := gin.Default()
+	r.GET("/", Index)
 	r.GET("/all", AllNews)
 	r.GET("/top", TopStories)
 	r.GET("/trending", Trending)
